@@ -38,3 +38,9 @@ yarn-error.log*
 
 # Vercel
 .vercel
+
+# Google Cloud Service Account Credentials - NEVER COMMIT
+*-service-account.json
+nails-digital-clients-*.json
+credentials.json
+service-account.json

@@ -1,13 +1,42 @@
 import Head from 'next/head'
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 export default function Home() {
-  useEffect(() => {
-    // Load Google Forms script if needed
-    const script = document.createElement('script')
-    script.src = 'https://docs.google.com/forms/d/e/1FAIpQLSc3Jz1z2z3z4z5z6z7z8z9z0z/formResponse'
-    // Replace with actual form ID
-  }, [])
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' })
+  const [loading, setLoading] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/submit-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) throw new Error(data.error)
+
+      setSubmitted(true)
+      setFormData({ name: '', phone: '', email: '', message: '' })
+      setTimeout(() => setSubmitted(false), 3000)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'שגיאה בשמירת הפרטים')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <>
@@ -26,21 +55,65 @@ export default function Home() {
         <section className="form-section">
           <h2>השאר לנו את הפרטים שלך</h2>
           <p>אנחנו נחזור אליך בקרוב</p>
-          
-          {/* Google Form Embed */}
-          <div className="form-container">
-            <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLSc3Jz1z2z3z4z5z6z7z8z9z0z/viewform?embedded=true"
-              width="640"
-              height="900"
-              frameBorder="0"
-              marginHeight={0}
-              marginWidth={0}
-              title="טופס - טיפולי פנים"
-            >
-              טעינה...
-            </iframe>
-          </div>
+
+          <form onSubmit={handleSubmit} className="form">
+            <div className="form-group">
+              <label htmlFor="name">שם מלא *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="שמך"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="phone">טלפון *</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="05X-XXX-XXXX"
+                required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="email">אימייל</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">הודעה</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="אמור לנו עוד משהו..."
+                rows={3}
+              />
+            </div>
+
+            {error && <div className="error-message">{error}</div>}
+            {submitted && <div className="success-message">✅ הפרטים שלך נשמרו בהצלחה!</div>}
+
+            <button type="submit" disabled={loading} className="submit-btn">
+              {loading ? 'שומר...' : 'שלח פרטים'}
+            </button>
+          </form>
         </section>
       </main>
     </>

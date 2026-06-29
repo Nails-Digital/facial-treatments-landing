@@ -1,24 +1,35 @@
 # דף נחיתה - טיפולי פנים
 
-דף נחיתה לטיפולי פנים עם טופס שמעביר נתונים לגוגל שיטס.
+דף נחיתה לטיפולי פנים עם טופס מעוצב המשדר נתונים **ישירות לגוגל שיטס** דרך Google Sheets API.
+
+## ✨ תכונות
+
+- ✅ טופס מעוצב ומגיב
+- ✅ שיתוף נתונים ישיר לגוגל שיטס (ללא צד ג')
+- ✅ RTL עברית מלאה
+- ✅ מותאם למובייל
+- ✅ בדיקה אוטומטית של שדות
+- ✅ הודעות הצלחה/שגיאה
 
 ## הגדרה
 
-### 1. גוגל פורמס (חשוב!)
+### 1. Google Cloud Service Account
 
-כדי שהטופס יעבוד, צריך:
+קובץ ה-JSON (`nails-digital-clients.json`) מכיל את ה-credentials - הוא כבר בפרוייקט! ✅
 
-1. ניצור Google Form חדש (https://forms.google.com)
-2. נחבר את הטופס לגוגל שיטס של הלקוחות
-3. ניקח את ה-Form ID מה-URL
-4. נעדכן את ה-iframe src ב-`pages/index.tsx`
+**⚠️ חשוב:** הקובץ ב-.gitignore ולא יעלה ל-GitHub
 
-**דוגמא URL:** 
-```
-https://docs.google.com/forms/d/e/1FAIpQLSc3Jz1z2z3z4z5z6z7z8z9z0z/viewform?embedded=true
-```
+### 2. תוכן הטופס
 
-### 2. התקנה מקומית
+הטופס כולל:
+- **שם מלא*** (נדרש)
+- **טלפון*** (נדרש)
+- **אימייל** (אופציונלי)
+- **הודעה** (אופציונלי)
+
+כל הנתונים נשמרים בטבלה עם תאריך וזמן.
+
+### 3. התקנה מקומית
 
 ```bash
 npm install
@@ -27,40 +38,59 @@ npm run dev
 
 הפרוייקט יפתח ב-http://localhost:3000
 
-### 3. דיפלוי בוורסל
+### 4. דיפלוי בוורסל
 
-1. חיבור הריפו לוורסל
-2. וורסל יבנה ויתקין אוטומטית
-3. הדומיין יהיה זמין באופן מיידי
+כשאתה דוחף ל-GitHub:
+
+1. פתח https://vercel.com
+2. בחר את הריפו `facial-treatments-landing`
+3. לחץ "Deploy"
+4. וורסל יבנה ויתקין אוטומטית
+
+**חשוב:** אתה צריך להוסיף את קובץ ה-JSON ל-Vercel secrets:
+- ל-Vercel dashboard של הפרוייקט
+- הוסף Environment Variable: `GOOGLE_CREDENTIALS`
+- צלוף את תוכן הקובץ JSON
+
+או העלה את קובץ ה-JSON בדרך אחרת שתכיל את ה-credentials.
 
 ## מבנה הפרוייקט
 
 ```
 ├── pages/
-│   ├── index.tsx (דף הנחיתה)
-│   └── _app.tsx
+│   ├── index.tsx (דף הנחיתה + טופס)
+│   ├── _app.tsx
+│   └── api/
+│       └── submit-form.ts (API endpoint)
 ├── styles/
-│   └── globals.css (עיצוב עברי RTL)
+│   └── globals.css (עיצוב RTL)
+├── nails-digital-clients.json (credentials - ב-.gitignore)
 ├── package.json
 ├── next.config.js
 ├── tsconfig.json
 └── README.md
 ```
 
-## עדכון הטופס
+## API Endpoint
 
-כדי לעדכן את ה-Google Form embed:
+**POST** `/api/submit-form`
 
-1. פתח `pages/index.tsx`
-2. עדכן את ה-iframe `src` עם ה-URL של הטופס החדש
-3. תמיד הוסף `?embedded=true` לסוף ה-URL
+```json
+{
+  "name": "שם מלא",
+  "phone": "05X-XXX-XXXX",
+  "email": "email@example.com",
+  "message": "הודעה"
+}
+```
 
 ## הערות
 
 - הדף מוגדר ב-RTL (מימין לשמאל) לעברית
-- כל הנתונים שמשאירים לקוחות עוברים ישירות לגוגל שיטס דרך הטופס
-- הדיזיין מותאם למובייל וחשמלי
+- כל הנתונים נשמרים בגוגל שיטס אוטומטית
+- אין צורך בתשלומים או שירותי צד ג' כי בנינו טופס משלנו
+- ה-.gitignore מגן על ה-credentials
 
 ---
 
-**עמוד זה הוקם עם Next.js וווורסל** ✨
+**עמוד זה הוקם עם Next.js, Google Sheets API וווורסל** 🚀
