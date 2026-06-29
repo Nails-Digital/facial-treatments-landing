@@ -144,7 +144,7 @@ export default function Home() {
         {/* HERO */}
         <section style={{ padding: '88px 24px 80px', background: '#fff', textAlign: 'center', borderBottom: '2px solid #111' }}>
           <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>קוסמטיקאית פארא-רפואית · מיכאל ארז כהן</p>
+            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>מיכאל ארז כהן קוסמטיקאית</p>
             <h1 style={{ fontSize: '56px', fontWeight: '900', lineHeight: '1.15', marginBottom: '22px', color: '#111', letterSpacing: '-1px' }}>
               העור שלך מספר סיפור.<br />בואי נכתוב אותו מחדש.
             </h1>
