@@ -18,11 +18,7 @@ export default function Home() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    if (name === 'main_concern') {
-      setFormData(prev => ({ ...prev, [name]: concernsMap[value] || value }))
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }))
-    }
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const scrollToForm = () => {
@@ -38,10 +34,14 @@ export default function Home() {
     setError('')
 
     try {
+      const submitData = {
+        ...formData,
+        main_concern: concernsMap[formData.main_concern] || formData.main_concern
+      }
       const res = await fetch('/api/submit-form', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(submitData)
       })
 
       const data = await res.json()
