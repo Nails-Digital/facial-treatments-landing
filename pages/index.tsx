@@ -71,7 +71,7 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }
-          html, body { width: 100%; height: 100%; }
+          html { width: 100vw; overflow-x: hidden; }
           body {
             font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #faf8f5;
@@ -79,29 +79,38 @@ export default function Home() {
             line-height: 1.6;
             direction: rtl;
             text-align: right;
+            width: 100%;
+            overflow-x: hidden;
           }
           a { text-decoration: none; color: inherit; }
           button { cursor: pointer; border: none; font-family: inherit; transition: all 0.25s ease; }
-          input, textarea, select { font-family: inherit; }
+          input, textarea, select { font-family: inherit; width: 100%; }
           ::placeholder { color: #b0a89e; }
+          img { max-width: 100%; height: auto; }
 
           @media (max-width: 768px) {
             body { font-size: 14px; }
-            h1 { font-size: 32px !important; }
-            h2 { font-size: 28px !important; }
-            h3 { font-size: 18px !important; }
-            p { font-size: 14px !important; }
-            section { padding: 48px 16px !important; }
-            [style*="gridTemplateColumns"] {
+            h1 { font-size: 32px !important; line-height: 1.2 !important; }
+            h2 { font-size: 26px !important; }
+            h3 { font-size: 16px !important; }
+            p { font-size: 13px !important; }
+            section { padding: 40px 16px !important; }
+            div[style*="maxWidth"] { max-width: 100% !important; padding: 0 8px !important; }
+            div[style*="display: grid"] { gap: 12px !important; }
+            div[style*="gridTemplateColumns"] {
               grid-template-columns: 1fr !important;
             }
+            button { padding: 14px 20px !important; font-size: 14px !important; width: 100%; }
           }
 
           @media (max-width: 480px) {
-            h1 { font-size: 24px !important; }
-            h2 { font-size: 20px !important; }
-            section { padding: 32px 12px !important; }
-            button { padding: 12px 24px !important; font-size: 14px !important; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 18px !important; }
+            h3 { font-size: 14px !important; }
+            p { font-size: 12px !important; }
+            section { padding: 24px 12px !important; }
+            button { padding: 12px 16px !important; font-size: 13px !important; }
+            div[style*="maxWidth"] { padding: 0 6px !important; }
           }
         `}</style>
       </Head>
