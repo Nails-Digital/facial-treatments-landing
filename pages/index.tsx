@@ -65,7 +65,7 @@ export default function Home() {
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>טיפולי פנים מקצועיים | מיכאל ארז</title>
+        <title>טיפולי פנים מקצועיים | מיכאל ארז כהן</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -84,6 +84,25 @@ export default function Home() {
           button { cursor: pointer; border: none; font-family: inherit; transition: all 0.25s ease; }
           input, textarea, select { font-family: inherit; }
           ::placeholder { color: #b0a89e; }
+
+          @media (max-width: 768px) {
+            body { font-size: 14px; }
+            h1 { font-size: 32px !important; }
+            h2 { font-size: 28px !important; }
+            h3 { font-size: 18px !important; }
+            p { font-size: 14px !important; }
+            section { padding: 48px 16px !important; }
+            [style*="gridTemplateColumns"] {
+              grid-template-columns: 1fr !important;
+            }
+          }
+
+          @media (max-width: 480px) {
+            h1 { font-size: 24px !important; }
+            h2 { font-size: 20px !important; }
+            section { padding: 32px 12px !important; }
+            button { padding: 12px 24px !important; font-size: 14px !important; }
+          }
         `}</style>
       </Head>
 
@@ -91,7 +110,7 @@ export default function Home() {
         {/* HERO */}
         <section style={{ padding: '88px 24px 80px', background: '#fff', textAlign: 'center', borderBottom: '2px solid #111' }}>
           <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>קוסמטיקאית פארא-רפואית · מיכאל ארז</p>
+            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>קוסמטיקאית פארא-רפואית · מיכאל ארז כהן</p>
             <h1 style={{ fontSize: '56px', fontWeight: '900', lineHeight: '1.15', marginBottom: '22px', color: '#111', letterSpacing: '-1px' }}>
               העור שלך מספר סיפור.<br />בואי נכתוב אותו מחדש.
             </h1>
@@ -403,7 +422,7 @@ export default function Home() {
             <p style={{ marginBottom: '10px' }}>
               <strong style={{ color: '#8a8078' }}>הבהרה:</strong> הטיפולים המוצעים הם טיפולי קוסמטיקה לשיפור מראה ומצב העור. התוצאות משתנות מאדם לאדם בהתאם לגיל, סוג העור, מצב בריאותי וגורמים נוספים, ואינן מובטחות. המידע בדף זה אינו מהווה אבחון או ייעוץ רפואי ואינו תחליף להתייעצות עם רופא עור. במצבים רפואיים מסוימים, בהריון או ברגישויות ידועות, יש להיוועץ ברופא לפני תחילת הטיפול.
             </p>
-            <p>© {new Date().getFullYear()} כל הזכויות שמורות · מיכאל ארז קוסמטיקאית פארא-רפואית</p>
+            <p>© {new Date().getFullYear()} כל הזכויות שמורות · מיכאל ארז כהן קוסמטיקאית פארא-רפואית</p>
           </div>
         </section>
       </div>
