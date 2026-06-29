@@ -35,11 +35,13 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error)
 
       setSubmitted(true)
+      alert('תודה! אחזור אלייך בקרוב.')
       setFormData({ name: '', phone: '', email: '', main_concern: '' })
       window.scrollTo({ top: 0, behavior: 'smooth' })
       setTimeout(() => setSubmitted(false), 5000)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'שגיאה בשמירת הפרטים')
+      alert('שגיאה בשליחת הטופס. אנא נסי שוב.')
     } finally {
       setLoading(false)
     }
@@ -48,11 +50,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>טיפולי פנים מקצועיים | מיכאל ארז</title>
-        <meta name="description" content="טיפולי פנים מקצועיים לאקנה, פיגמנטציה והצערת העור" />
+        <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>טיפולי פנים מקצועיים | מיכאל ארז</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -76,9 +78,7 @@ export default function Home() {
         {/* HERO */}
         <section style={{ padding: '88px 24px 80px', background: '#fff', textAlign: 'center', borderBottom: '2px solid #111' }}>
           <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>
-              קוסמטיקאית פארא-רפואית · מיכאל ארז
-            </p>
+            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#111', marginBottom: '24px', fontWeight: '700', textTransform: 'uppercase' }}>קוסמטיקאית פארא-רפואית · מיכאל ארז</p>
             <h1 style={{ fontSize: '56px', fontWeight: '900', lineHeight: '1.15', marginBottom: '22px', color: '#111', letterSpacing: '-1px' }}>
               העור שלך מספר סיפור.<br />בואי נכתוב אותו מחדש.
             </h1>
@@ -91,6 +91,7 @@ export default function Home() {
             <button onClick={scrollToForm} style={{ padding: '18px 52px', background: '#111', color: '#fff', borderRadius: '4px', fontSize: '16px', fontWeight: '700', display: 'inline-block', marginBottom: '40px', letterSpacing: '0.5px' }}>
               לתיאום ייעוץ ללא עלות
             </button>
+            <img src="/images/clinic-room.jpg" style={{ width: '100%', height: '420px', objectFit: 'cover', borderRadius: '4px', border: '2px solid #111', display: 'block' }} alt="הקליניקה" />
           </div>
         </section>
 
@@ -104,14 +105,79 @@ export default function Home() {
               כל עור הוא עולם. אני מתמחה בשלושת האתגרים הנפוצים ביותר.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+              <div style={{ background: '#fff', padding: '36px 28px', borderRadius: '4px', border: '2px solid #111', borderTop: '4px solid #111' }}>
+                <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>אקנה ופצעי בגרות</h3>
+                <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85', fontWeight: '400' }}>
+                  אקנה אקטיבית, פצעונים חוזרים, צלקות ופיגמנטציה שנשארות אחריהם. טיפול שמרגיע את הדלקת, מאזן את העור ומחזיר לו חלקות.
+                </p>
+              </div>
+              <div style={{ background: '#fff', padding: '36px 28px', borderRadius: '4px', border: '2px solid #111', borderTop: '4px solid #111' }}>
+                <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>פיגמנטציה וכתמים</h3>
+                <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85', fontWeight: '400' }}>
+                  כתמי שמש, כתמי הריון (מלזמה), גוון עור לא אחיד. הבהרה הדרגתית ובטוחה שמחזירה לעור גוון אחיד וזוהר טבעי.
+                </p>
+              </div>
+              <div style={{ background: '#fff', padding: '36px 28px', borderRadius: '4px', border: '2px solid #111', borderTop: '4px solid #111' }}>
+                <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>הצערת העור</h3>
+                <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85', fontWeight: '400' }}>
+                  קמטוטים, רפיון, אובדן נפח וזוהר. טיפולים שמעוררים את העור לייצור קולגן מחדש ומחזירים לו מראה מוצק וצעיר.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PROBLEM SECTION */}
+        <section style={{ padding: '88px 24px', background: '#fff', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
+              את לא לבד בזה
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px', marginBottom: '28px' }}>
+              <div style={{ background: '#faf8f5', padding: '32px', borderRadius: '4px', border: '2px solid #111', borderRight: '4px solid #111' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '12px', color: '#111' }}>ניסית כבר הכל</h3>
+                <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85' }}>
+                  קרמים יקרים, מסכות מהאינטרנט, המלצות מחברות. כל פעם תקווה חדשה, וכל פעם אכזבה. העור ממשיך להראות בדיוק אותו דבר, ולפעמים אפילו גרוע יותר.
+                </p>
+              </div>
+              <div style={{ background: '#faf8f5', padding: '32px', borderRadius: '4px', border: '2px solid #111', borderRight: '4px solid #111' }}>
+                <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '12px', color: '#111' }}>זה משפיע על הביטחון</h3>
+                <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85' }}>
+                  להתאפר כדי לכסות. להימנע מתמונות. להרגיש לא נוח כשמסתכלים עלייך מקרוב. כשהעור לא במיטבו, זה נוגע בהרבה יותר מהמראה.
+                </p>
+              </div>
+            </div>
+            <div style={{ background: '#faf8f5', padding: '32px', borderRadius: '4px', border: '2px solid #111', borderRight: '4px solid #111' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '12px', color: '#111' }}>הבעיה היא לא את. הבעיה היא חוסר אבחון</h3>
+              <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85' }}>
+                רוב המוצרים נכשלים כי הם לא מתאימים לעור הספציפי שלך. עור שמן צריך גישה אחרת מעור יבש, פיגמנטציה דורשת טיפול שונה מאקנה. כשמתחילים מאבחון נכון, הכל משתנה.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* APPROACH SECTION */}
+        <section style={{ padding: '88px 24px', background: '#faf8f5', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '14px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
+              איך עובד אצלי הטיפול
+            </h2>
+            <p style={{ fontSize: '17px', color: '#5c5550', textAlign: 'center', marginBottom: '56px', fontWeight: '500' }}>
+              גישה מסודרת, צעד אחר צעד, שמביאה לתוצאות שמחזיקות לאורך זמן.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
               {[
-                { title: 'אקנה ופצעי בגרות', desc: 'אקנה אקטיבית, פצעונים חוזרים, צלקות ופיגמנטציה שנשארות אחריהם. טיפול שמרגיע את הדלקת, מאזן את העור ומחזיר לו חלקות.' },
-                { title: 'פיגמנטציה וכתמים', desc: 'כתמי שמש, כתמי הריון (מלזמה), גוון עור לא אחיד. הבהרה הדרגתית ובטוחה שמחזירה לעור גוון אחיד וזוהר טבעי.' },
-                { title: 'הצערת העור', desc: 'קמטוטים, רפיון, אובדן נפח וזוהר. טיפולים שמעוררים את העור לייצור קולגן מחדש ומחזירים לו מראה מוצק וצעיר.' }
-              ].map((item, i) => (
-                <div key={i} style={{ background: '#fff', padding: '36px 28px', borderRadius: '4px', border: '2px solid #111', borderTop: '4px solid #111' }}>
-                  <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#111' }}>{item.title}</h3>
-                  <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85', fontWeight: '400' }}>{item.desc}</p>
+                { num: '1', title: 'אבחון עומק', desc: 'מתחילים בשיחה ובבדיקה מקרוב של העור. מבינים את ההיסטוריה, ההרגלים, ומה באמת קורה מתחת לפני השטח.' },
+                { num: '2', title: 'תוכנית אישית', desc: 'בונים יחד תוכנית טיפולים מותאמת, עם לוח זמנים ברור והסבר על כל שלב. בלי הפתעות, בלי לחץ.' },
+                { num: '3', title: 'טיפול וליווי', desc: 'הטיפולים עצמם, יחד עם המלצות לשגרת טיפוח ביתית. אני כאן בשבילך גם בין המפגשים, לכל שאלה.' },
+                { num: '4', title: 'שימור התוצאות', desc: 'אחרי שמגיעים ליעד, בונים תוכנית תחזוקה שתשמור על העור במיטבו לאורך זמן.' }
+              ].map((item) => (
+                <div key={item.num} style={{ background: '#fff', padding: '28px 32px', borderRadius: '4px', border: '2px solid #111', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+                  <div style={{ minWidth: '48px', height: '48px', background: '#111', color: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', fontWeight: '800' }}>{item.num}</div>
+                  <div>
+                    <h3 style={{ fontSize: '18px', fontWeight: '800', marginBottom: '8px', color: '#111' }}>{item.title}</h3>
+                    <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85' }}>{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -121,9 +187,7 @@ export default function Home() {
         {/* DEVICES SECTION */}
         <section style={{ padding: '88px 24px', background: '#111', borderTop: '2px solid #111' }}>
           <div style={{ maxWidth: '1020px', margin: '0 auto' }}>
-            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#c9b89a', marginBottom: '20px', fontWeight: '700', textAlign: 'center', textTransform: 'uppercase' }}>
-              הטכנולוגיה שמאחורי התוצאות
-            </p>
+            <p style={{ fontSize: '13px', letterSpacing: '3px', color: '#c9b89a', marginBottom: '20px', fontWeight: '700', textAlign: 'center', textTransform: 'uppercase' }}>הטכנולוגיה שמאחורי התוצאות</p>
             <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '14px', textAlign: 'center', color: '#fff', letterSpacing: '-0.5px' }}>
               מכשירים מקצועיים מהשורה הראשונה
             </h2>
@@ -166,6 +230,106 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
+                </div>
+              ))}
+            </div>
+
+            <p style={{ textAlign: 'center', color: '#6a6258', fontSize: '13px', marginTop: '40px', fontStyle: 'italic' }}>
+              כל פרוטוקול טיפול נבנה מאפס לפי סוג העור, מצבו וצרכיו הספציפיים — לעיתים שילוב של יותר ממכשיר אחד.
+            </p>
+          </div>
+        </section>
+
+        {/* BEFORE/AFTER */}
+        <section style={{ padding: '88px 24px', background: '#fff', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>חוויה שמדברת בעד עצמה</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '28px' }}>
+              <div style={{ textAlign: 'center' }}>
+                <img src="/images/before-after.jpg" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', border: '2px solid #111', marginBottom: '14px', display: 'block' }} alt="לפני ואחרי" />
+                <p style={{ color: '#5c5550', fontSize: '14px', fontWeight: '600' }}>מיטת הטיפולים</p>
+              </div>
+              <div style={{ textAlign: 'center' }}>
+                <img src="/images/devices-equipment.jpg" style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '4px', border: '2px solid #111', marginBottom: '14px', display: 'block' }} alt="המכשירים" />
+                <p style={{ color: '#5c5550', fontSize: '14px', fontWeight: '600' }}>הציוד המקצועי</p>
+              </div>
+            </div>
+            <p style={{ textAlign: 'center', color: '#8a8078', fontSize: '13px', marginTop: '28px' }}>
+              התוצאות משתנות מאדם לאדם בהתאם לסוג העור, הגיל והמצב הבריאותי.
+            </p>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section style={{ padding: '88px 24px', background: '#faf8f5', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
+              מה מספרות הלקוחות שלי
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+              {[
+                { text: '"סבלתי מאקנה כבר שנים והרגשתי שניסיתי כל דבר אפשרי. הפעם הראשונה שמישהי באמת ישבה איתי, הבינה את העור שלי ובנתה תוכנית. תוך כמה חודשים הפנים שלי השתנו לגמרי. סוף סוף אני יוצאת מהבית בלי איפור."', name: 'מיכל, אור יהודה' },
+                { text: '"אחרי ההריון נשארו לי כתמים כהים בכל הפנים והייתי בייאוש. קיבלתי יחס חם, סבלני ומקצועי, וכל שלב הוסבר לי בדיוק. הכתמים התבהרו בהדרגה והגוון התאחד. אני ממליצה לכל אחת שמתלבטת."', name: 'שירה, יהוד' },
+                { text: '"בגיל 52 חשבתי שכבר אין מה לעשות עם העור שלי. טעיתי. הטיפולים החזירו לפנים שלי מראה רענן ומוצק שלא הכרתי שנים. אנשים שואלים אותי מה שיניתי. זו ההמלצה הכי טובה שיש."', name: 'רונית, קרית אונו' }
+              ].map((item, i) => (
+                <div key={i} style={{ background: '#fff', padding: '32px', borderRadius: '4px', border: '2px solid #111', borderRight: '4px solid #111' }}>
+                  <p style={{ color: '#3a3530', fontSize: '15px', lineHeight: '1.9', marginBottom: '18px', fontWeight: '400' }}>
+                    {item.text}
+                  </p>
+                  <p style={{ fontWeight: '700', fontSize: '14px', color: '#111' }}>{item.name}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* WHO IT FITS */}
+        <section style={{ padding: '88px 24px', background: '#fff', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
+              הטיפול מתאים לך אם
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '14px', marginBottom: '40px' }}>
+              {[
+                'את מתמודדת עם אקנה אקטיבית או צלקות',
+                'יש לך כתמי שמש או כתמי הריון',
+                'את מרגישה שהעור איבד מהמוצקות והזוהר',
+                'גוון העור שלך לא אחיד',
+                'ניסית מוצרים רבים בלי תוצאה',
+                'את רוצה ליווי מקצועי ולא עוד קרם'
+              ].map((item, i) => (
+                <div key={i} style={{ background: '#faf8f5', padding: '20px 24px', borderRadius: '4px', border: '2px solid #111', borderRight: '3px solid #111', display: 'flex', alignItems: 'center', gap: '14px' }}>
+                  <div style={{ minWidth: '8px', height: '8px', background: '#111', borderRadius: '50%' }}></div>
+                  <span style={{ fontSize: '15px', fontWeight: '500', color: '#1a1714' }}>{item}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: '#faf8f5', padding: '28px 32px', borderRadius: '4px', border: '2px solid #111', textAlign: 'center' }}>
+              <p style={{ color: '#3a3530', fontSize: '15px', fontWeight: '500', lineHeight: '1.8' }}>
+                <strong style={{ color: '#111' }}>הטיפול מתאים לכל גיל ולכל סוג עור.</strong> הגישה תמיד מותאמת אישית למצב הספציפי שלך.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section style={{ padding: '88px 24px', background: '#faf8f5', borderTop: '2px solid #111' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+            <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
+              שאלות נפוצות
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '16px' }}>
+              {[
+                { q: 'כמה טיפולים אצטרך?', a: 'זה תלוי במצב העור ובמטרה. בדרך כלל מדובר בסדרה של מספר מפגשים, במרווחים קבועים. בייעוץ הראשון נבנה יחד תוכנית מדויקת ונדע בדיוק למה לצפות.' },
+                { q: 'מתי אראה תוצאות?', a: 'כבר אחרי הטיפולים הראשונים העור נראה רענן ובהיר יותר. השינוי המשמעותי מגיע עם המשך הסדרה. עור הוא תהליך, והתוצאות נבנות בהדרגה ונשארות.' },
+                { q: 'הטיפול כואב?', a: 'הטיפולים עדינים ונוחים. רוב הלקוחות מתארות אותם כחוויה מרגיעה. אם יש רגישות, אני מתאימה את עוצמת הטיפול בהתאם.' },
+                { q: 'אפשר לחזור לשגרה אחרי הטיפול?', a: 'כן, בדרך כלל מיד. יתכן שתהיה אדמומיות קלה לכמה שעות, וזו תגובה טבעית. אתן לך הנחיות ברורות לטיפוח בימים שאחרי.' },
+                { q: 'כמה זה עולה?', a: 'המחיר תלוי בסוג הטיפול ובתוכנית שנבנה יחד. בייעוץ ללא עלות נדבר בפתיחות גם על העלות ועל אפשרויות התשלום, כדי שתוכלי להחליט בנוחות.' },
+                { q: 'העור שלי רגיש מאוד. זה בשבילי?', a: 'בהחלט. אני עובדת עם כל סוגי העור, כולל עור רגיש מאוד. הכל מתחיל באבחון, וכל טיפול מותאם בעדינות לרמת הרגישות שלך.' }
+              ].map((item, i) => (
+                <div key={i} style={{ background: '#fff', padding: '28px 32px', borderRadius: '4px', border: '2px solid #111' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: '800', marginBottom: '12px', color: '#111' }}>{item.q}</h3>
+                  <p style={{ color: '#4a4540', fontSize: '15px', lineHeight: '1.85' }}>{item.a}</p>
                 </div>
               ))}
             </div>
@@ -217,6 +381,16 @@ export default function Home() {
                 אחזור אלייך בתוך 24 שעות. הפרטים שלך נשמרים בדיסקרטיות מלאה.
               </p>
             </form>
+          </div>
+        </section>
+
+        {/* DISCLAIMER */}
+        <section style={{ padding: '48px 24px', background: '#1a1714', borderTop: '1px solid #2a2520' }}>
+          <div style={{ maxWidth: '900px', margin: '0 auto', fontSize: '13px', color: '#6a6258', lineHeight: '1.8' }}>
+            <p style={{ marginBottom: '10px' }}>
+              <strong style={{ color: '#8a8078' }}>הבהרה:</strong> הטיפולים המוצעים הם טיפולי קוסמטיקה לשיפור מראה ומצב העור. התוצאות משתנות מאדם לאדם בהתאם לגיל, סוג העור, מצב בריאותי וגורמים נוספים, ואינן מובטחות. המידע בדף זה אינו מהווה אבחון או ייעוץ רפואי ואינו תחליף להתייעצות עם רופא עור. במצבים רפואיים מסוימים, בהריון או ברגישויות ידועות, יש להיוועץ ברופא לפני תחילת הטיפול.
+            </p>
+            <p>© {new Date().getFullYear()} כל הזכויות שמורות · מיכאל ארז קוסמטיקאית פארא-רפואית</p>
           </div>
         </section>
       </div>
