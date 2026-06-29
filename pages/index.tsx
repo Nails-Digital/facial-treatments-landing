@@ -71,7 +71,11 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <style>{`
           * { margin: 0; padding: 0; box-sizing: border-box; }
-          html { width: 100vw; overflow-x: hidden; }
+          html {
+            width: 100%;
+            overflow-x: hidden;
+            max-width: 100vw;
+          }
           body {
             font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #faf8f5;
@@ -80,13 +84,23 @@ export default function Home() {
             direction: rtl;
             text-align: right;
             width: 100%;
-            overflow-x: hidden;
+            max-width: 100vw;
+            overflow-x: hidden !important;
           }
           a { text-decoration: none; color: inherit; }
           button { cursor: pointer; border: none; font-family: inherit; transition: all 0.25s ease; }
-          input, textarea, select { font-family: inherit; width: 100%; }
+          input, textarea, select { font-family: inherit; width: 100%; max-width: 100%; }
           ::placeholder { color: #b0a89e; }
-          img { max-width: 100%; height: auto; }
+          img { max-width: 100%; height: auto; display: block; }
+          section { width: 100%; max-width: 100vw; overflow-x: hidden; }
+          div { max-width: 100%; }
+          table { width: 100%; table-layout: auto; }
+
+          @media (max-width: 1200px) {
+            div[style*="gridTemplateColumns: repeat(3"] {
+              grid-template-columns: 1fr 1fr !important;
+            }
+          }
 
           @media (max-width: 768px) {
             body { font-size: 14px; }
@@ -94,10 +108,10 @@ export default function Home() {
             h2 { font-size: 26px !important; }
             h3 { font-size: 16px !important; }
             p { font-size: 13px !important; }
-            section { padding: 40px 16px !important; }
-            div[style*="maxWidth"] { max-width: 100% !important; padding: 0 8px !important; }
-            div[style*="display: grid"] { gap: 12px !important; }
-            div[style*="gridTemplateColumns"] {
+            section { padding: 40px 16px !important; width: 100% !important; }
+            div[style*="maxWidth"] { max-width: 100% !important; padding: 0 8px !important; width: 100% !important; }
+            div[style*="display: grid"] { gap: 12px !important; width: 100% !important; }
+            div[style*="gridTemplateColumns: repeat(3"] {
               grid-template-columns: 1fr !important;
             }
             button { padding: 14px 20px !important; font-size: 14px !important; width: 100%; }
@@ -108,9 +122,16 @@ export default function Home() {
             h2 { font-size: 18px !important; }
             h3 { font-size: 14px !important; }
             p { font-size: 12px !important; }
-            section { padding: 24px 12px !important; }
+            section { padding: 24px 12px !important; width: 100% !important; }
             button { padding: 12px 16px !important; font-size: 13px !important; }
-            div[style*="maxWidth"] { padding: 0 6px !important; }
+            div[style*="maxWidth"] { padding: 0 6px !important; width: 100% !important; }
+          }
+
+          @media (max-width: 360px) {
+            h1 { font-size: 18px !important; }
+            h2 { font-size: 16px !important; }
+            section { padding: 16px 8px !important; }
+            button { padding: 10px 12px !important; font-size: 12px !important; }
           }
         `}</style>
       </Head>
