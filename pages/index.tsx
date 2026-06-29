@@ -7,9 +7,22 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
 
+  const concernsMap: { [key: string]: string } = {
+    'acne': 'אקנה ופצעי בגרות',
+    'scars': 'צלקות אקנה',
+    'pigmentation': 'פיגמנטציה וכתמים',
+    'aging': 'קמטוטים והצערת העור',
+    'texture': 'גוון וטקסטורה לא אחידים',
+    'other': 'אחר'
+  }
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    if (name === 'main_concern') {
+      setFormData(prev => ({ ...prev, [name]: concernsMap[value] || value }))
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }))
+    }
   }
 
   const scrollToForm = () => {
