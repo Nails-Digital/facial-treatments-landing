@@ -7,8 +7,23 @@ const SPREADSHEET_ID = '1n_u63XJNghBt5bXAx_rujb7Ikl-4IwcqzP8uUIO0Ijc'
 const SHEET_NAME = 'גיליון1'
 
 async function getAuthClient() {
-  const keyPath = path.join(process.cwd(), 'nails-digital-clients.json')
-  const keyFile = JSON.parse(fs.readFileSync(keyPath, 'utf8'))
+  let keyFile
+
+  if (process.env.GOOGLE_CREDENTIALS) {
+    try {
+      keyFile = JSON.parse(process.env.GOOGLE_CREDENTIALS)
+    } catch (e) {
+      console.error('Failed to parse GOOGLE_CREDENTIALS from env')
+      throw e
+    }
+  } else {
+    const keyPath = path.join(process.cwd(), 'nails-digital-clients.json')
+    try {
+      keyFile = JSON.parse(fs.readFileSync(keyPath, 'utf8'))
+    } catch (e) {
+      throw new Error('Missing credentials: set GOOGLE_CREDENTIALS env var or add nails-digital-clients.json')
+    }
+  }
 
   const auth = new google.auth.GoogleAuth({
     credentials: keyFile,
