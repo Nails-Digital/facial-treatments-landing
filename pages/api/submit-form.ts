@@ -6,7 +6,7 @@ import path from 'path'
 const SPREADSHEET_ID = '1n_u63XJNghBt5bXAx_rujb7Ikl-4IwcqzP8uUIO0Ijc'
 const SHEET_NAME = 'גיליון1'
 
-async function getAuthClient() {
+async function getAuth() {
   let keyFile
 
   if (process.env.GOOGLE_CREDENTIALS) {
@@ -25,12 +25,10 @@ async function getAuthClient() {
     }
   }
 
-  const auth = new google.auth.GoogleAuth({
+  return new google.auth.GoogleAuth({
     credentials: keyFile,
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
-
-  return auth.getClient()
 }
 
 export default async function handler(
@@ -48,8 +46,8 @@ export default async function handler(
       return res.status(400).json({ error: 'שם וטלפון נדרשים' })
     }
 
-    const authClient = await getAuthClient()
-    const sheets = google.sheets({ version: 'v4', auth: authClient })
+    const auth = await getAuth()
+    const sheets = google.sheets({ version: 'v4', auth })
 
     const now = new Date()
     const dateStr = now.toLocaleDateString('he-IL')
