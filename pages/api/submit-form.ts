@@ -40,7 +40,7 @@ export default async function handler(
   }
 
   try {
-    const { name, phone, email, message } = req.body
+    const { name, phone, email, main_concern } = req.body
 
     if (!name || !phone) {
       return res.status(400).json({ error: 'שם וטלפון נדרשים' })
@@ -54,7 +54,7 @@ export default async function handler(
     const timeStr = now.toLocaleTimeString('he-IL')
 
     const values = [
-      [name, phone, email || '', message || '', dateStr, timeStr]
+      [name, phone, email || '', main_concern || '', dateStr, timeStr]
     ]
 
     await sheets.spreadsheets.values.append({
