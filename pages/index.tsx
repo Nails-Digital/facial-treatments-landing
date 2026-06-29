@@ -109,10 +109,14 @@ export default function Home() {
             h3 { font-size: 16px !important; }
             p { font-size: 13px !important; }
             section { padding: 40px 16px !important; width: 100% !important; }
-            div[style*="maxWidth"] { max-width: 100% !important; padding: 0 8px !important; width: 100% !important; }
+            div[style*="maxWidth"] { max-width: 100% !important; padding: 0 !important; width: 100% !important; }
             div[style*="display: grid"] { gap: 12px !important; width: 100% !important; }
             div[style*="gridTemplateColumns: repeat(3"] {
               grid-template-columns: 1fr !important;
+              gap: 16px !important;
+            }
+            div[style*="padding: 40px 30px"] {
+              padding: 20px 16px !important;
             }
             button { padding: 14px 20px !important; font-size: 14px !important; width: 100%; }
           }
