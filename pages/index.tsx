@@ -351,7 +351,7 @@ export default function Home() {
             <h2 style={{ fontSize: '44px', fontWeight: '900', marginBottom: '52px', textAlign: 'center', color: '#111', letterSpacing: '-0.5px' }}>
               הטיפול מתאים לך אם
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: '14px', marginBottom: '40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' }}>
               {[
                 'את מתמודדת עם אקנה אקטיבית או צלקות',
                 'יש לך כתמי שמש או כתמי הריון',
@@ -360,9 +360,9 @@ export default function Home() {
                 'ניסית מוצרים רבים בלי תוצאה',
                 'את רוצה ליווי מקצועי ולא עוד קרם'
               ].map((item, i) => (
-                <div key={i} style={{ background: '#faf8f5', padding: '20px 24px', borderRadius: '4px', border: '2px solid #111', borderRight: '3px solid #111', display: 'flex', alignItems: 'center', gap: '14px' }}>
-                  <div style={{ minWidth: '8px', height: '8px', background: '#111', borderRadius: '50%' }}></div>
-                  <span style={{ fontSize: '15px', fontWeight: '500', color: '#1a1714' }}>{item}</span>
+                <div key={i} style={{ background: '#fff', padding: '16px 20px', borderRadius: '4px', border: '2px solid #111', borderRight: '3px solid #111', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ minWidth: '6px', height: '6px', background: '#111', borderRadius: '50%', flexShrink: 0 }}></div>
+                  <span style={{ fontSize: '14px', fontWeight: '500', color: '#1a1714', lineHeight: '1.5' }}>{item}</span>
                 </div>
               ))}
             </div>
