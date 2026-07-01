@@ -146,42 +146,53 @@ export default function Home({ htmlContent }: Props) {
 
       <script dangerouslySetInnerHTML={{__html: `
         // Form submission handler
-        const forms = document.querySelectorAll('form[onsubmit]');
-        forms.forEach(form => {
-          form.onsubmit = null;
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
+        document.addEventListener('DOMContentLoaded', function() {
+          const forms = document.querySelectorAll('form');
+          forms.forEach(form => {
+            form.onsubmit = null;
+            form.addEventListener('submit', async (e) => {
+              e.preventDefault();
+              e.stopPropagation();
 
-            const submitData = {
-              name: formData.get('name'),
-              phone: formData.get('phone'),
-              email: formData.get('email'),
-              main_concern: {
+              const formData = new FormData(form);
+
+              const concernsMap = {
                 'acne': 'אקנה ופצעי בגרות',
                 'scars': 'צלקות אקנה',
                 'pigmentation': 'פיגמנטציה וכתמים',
                 'aging': 'קמטוטים והצערת העור',
                 'texture': 'גוון וטקסטורה לא אחידים',
                 'other': 'אחר'
-              }[formData.get('main_concern')] || formData.get('main_concern')
-            };
+              };
 
-            try {
-              const res = await fetch('/api/submit-form', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(submitData)
-              });
-              if (res.ok) {
-                alert('תודה! אחזור אלייך בקרוב.');
-                form.reset();
-              } else {
+              const mainConcern = formData.get('main_concern');
+              const submitData = {
+                name: formData.get('name') || '',
+                phone: formData.get('phone') || '',
+                email: formData.get('email') || '',
+                main_concern: concernsMap[mainConcern] || mainConcern
+              };
+
+              try {
+                const res = await fetch('/api/submit-form', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(submitData)
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                  alert('תודה! אחזור אלייך בקרוב.');
+                  form.reset();
+                } else {
+                  alert('שגיאה: ' + (data.error || 'אנא נסי שוב'));
+                }
+              } catch (err) {
+                console.error('Form error:', err);
                 alert('שגיאה בשליחת הטופס. אנא נסי שוב.');
               }
-            } catch (err) {
-              alert('שגיאה בשליחת הטופס. אנא נסי שוב.');
-            }
+            });
           });
         });
       `}} />
