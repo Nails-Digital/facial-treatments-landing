@@ -100,7 +100,7 @@ export default function Home({ htmlContent }: Props) {
         `}</style>
       </Head>
 
-      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
       {/* Form overlay */}
       <style>{`
@@ -145,8 +145,26 @@ export default function Home({ htmlContent }: Props) {
       `}</style>
 
       <script dangerouslySetInnerHTML={{__html: `
+        // Scroll to form handler
+        function scrollToForm() {
+          const formSection = document.getElementById('contact');
+          if (formSection) {
+            formSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+
         // Form submission handler
         document.addEventListener('DOMContentLoaded', function() {
+          // Setup scroll buttons
+          const buttons = document.querySelectorAll('button[onclick*="scrollToForm"]');
+          buttons.forEach(btn => {
+            btn.onclick = null;
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              scrollToForm();
+            });
+          });
+
           const forms = document.querySelectorAll('form');
           forms.forEach(form => {
             form.onsubmit = null;
