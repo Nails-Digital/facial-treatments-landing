@@ -153,66 +153,66 @@ export default function Home({ htmlContent }: Props) {
           }
         }
 
-        // Form submission handler
-        document.addEventListener('DOMContentLoaded', function() {
-          // Setup scroll buttons
-          const buttons = document.querySelectorAll('button[onclick*="scrollToForm"]');
-          buttons.forEach(btn => {
-            btn.onclick = null;
-            btn.addEventListener('click', function(e) {
-              e.preventDefault();
-              scrollToForm();
+        // Event delegation at document level - survives React hydration
+        // replacing the DOM, so listeners never get lost.
+        document.addEventListener('submit', async function(e) {
+          const form = e.target.closest('form');
+          if (!form) return;
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          const formData = new FormData(form);
+
+          const concernsMap = {
+            'acne': 'אקנה ופצעי בגרות',
+            'scars': 'צלקות אקנה',
+            'pigmentation': 'פיגמנטציה וכתמים',
+            'aging': 'קמטוטים והצערת העור',
+            'texture': 'גוון וטקסטורה לא אחידים',
+            'other': 'אחר'
+          };
+
+          const mainConcern = formData.get('main_concern');
+          const submitData = {
+            name: formData.get('name') || '',
+            phone: formData.get('phone') || '',
+            email: formData.get('email') || '',
+            main_concern: concernsMap[mainConcern] || mainConcern
+          };
+
+          const submitBtn = form.querySelector('button[type="submit"], button');
+          const originalText = submitBtn ? submitBtn.textContent : '';
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'שולח...';
+          }
+
+          try {
+            const res = await fetch('/api/submit-form', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(submitData)
             });
-          });
 
-          const forms = document.querySelectorAll('form');
-          forms.forEach(form => {
-            form.onsubmit = null;
-            form.addEventListener('submit', async (e) => {
-              e.preventDefault();
-              e.stopPropagation();
+            const data = await res.json();
 
-              const formData = new FormData(form);
-
-              const concernsMap = {
-                'acne': 'אקנה ופצעי בגרות',
-                'scars': 'צלקות אקנה',
-                'pigmentation': 'פיגמנטציה וכתמים',
-                'aging': 'קמטוטים והצערת העור',
-                'texture': 'גוון וטקסטורה לא אחידים',
-                'other': 'אחר'
-              };
-
-              const mainConcern = formData.get('main_concern');
-              const submitData = {
-                name: formData.get('name') || '',
-                phone: formData.get('phone') || '',
-                email: formData.get('email') || '',
-                main_concern: concernsMap[mainConcern] || mainConcern
-              };
-
-              try {
-                const res = await fetch('/api/submit-form', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(submitData)
-                });
-
-                const data = await res.json();
-
-                if (res.ok) {
-                  alert('תודה! אחזור אלייך בקרוב.');
-                  form.reset();
-                } else {
-                  alert('שגיאה: ' + (data.error || 'אנא נסי שוב'));
-                }
-              } catch (err) {
-                console.error('Form error:', err);
-                alert('שגיאה בשליחת הטופס. אנא נסי שוב.');
-              }
-            });
-          });
-        });
+            if (res.ok) {
+              alert('תודה! הפרטים נשלחו בהצלחה. אחזור אלייך בקרוב.');
+              form.reset();
+            } else {
+              alert('שגיאה: ' + (data.error || 'אנא נסי שוב'));
+            }
+          } catch (err) {
+            console.error('Form error:', err);
+            alert('שגיאה בשליחת הטופס. אנא נסי שוב.');
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+            }
+          }
+        }, true);
       `}} />
     </>
   )
