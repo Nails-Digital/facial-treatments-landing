@@ -198,6 +198,9 @@ export default function Home({ htmlContent }: Props) {
             const data = await res.json();
 
             if (res.ok) {
+              if (typeof fbq === 'function') {
+                fbq('track', 'Lead');
+              }
               alert('תודה! הפרטים נשלחו בהצלחה. אחזור אלייך בקרוב.');
               form.reset();
             } else {
