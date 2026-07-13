@@ -9,6 +9,9 @@ declare global {
 }
 
 const LEAD_SUBMITTED_KEY = 'michaelLeadSubmitted'
+const WHATSAPP_URL = `https://wa.me/972547225585?text=${encodeURIComponent(
+  'היי מיכאל, השארתי עכשיו פרטים באתר ורציתי ליצור קשר.'
+)}`
 
 export default function ThankYou() {
   useEffect(() => {
@@ -53,7 +56,17 @@ export default function ThankYou() {
           <p className="message">
             אחזור אלייך בהקדם כדי להכיר אותך ולבדוק יחד איזה טיפול מתאים לך.
           </p>
-          <Link href="/" className="back-link">חזרה לאתר</Link>
+          <div className="actions">
+            <a
+              href={WHATSAPP_URL}
+              className="whatsapp-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              שליחת הודעה בוואטסאפ
+            </a>
+            <Link href="/" className="back-link">חזרה לאתר</Link>
+          </div>
           <p className="signature">מיכאל ארז כהן</p>
         </section>
       </main>
@@ -113,15 +126,30 @@ export default function ThankYou() {
           line-height: 1.7;
         }
 
+        .actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 14px;
+        }
+
+        :global(.whatsapp-link),
         :global(.back-link) {
           display: inline-block;
           padding: 14px 32px;
           border-radius: 999px;
-          background: #2f2924;
           color: #fff;
           font-size: 16px;
           font-weight: 700;
           text-decoration: none;
+        }
+
+        :global(.whatsapp-link) {
+          background: #168b50;
+        }
+
+        :global(.back-link) {
+          background: #2f2924;
         }
 
         .signature {
