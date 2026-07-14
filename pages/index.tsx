@@ -7,6 +7,10 @@ interface Props {
   htmlContent: string
 }
 
+const WHATSAPP_URL = `https://wa.me/972547225585?text=${encodeURIComponent(
+  'היי מיכאל, הגעתי דרך האתר ורציתי לקבל פרטים על טיפול.'
+)}`
+
 export default function Home({ htmlContent }: Props) {
   const [loading, setLoading] = useState(false)
   const [formError, setFormError] = useState('')
@@ -83,11 +87,40 @@ export default function Home({ htmlContent }: Props) {
           ::placeholder { color: #b0a89e; }
           img { max-width: 100%; height: auto; display: block; }
           section { width: 100%; max-width: 100vw; overflow-x: hidden; }
+          .whatsapp-float {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 13px 24px;
+            border-radius: 999px;
+            background: #168b50;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(22, 139, 80, 0.28);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          }
+          .whatsapp-float:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(22, 139, 80, 0.34);
+          }
 
           @media (max-width: 768px) {
             h1 { font-size: 32px !important; }
             h2 { font-size: 26px !important; }
             section { padding: 40px 16px !important; }
+            .whatsapp-float {
+              left: 14px;
+              bottom: 14px;
+              min-height: 48px;
+              padding: 11px 19px;
+              font-size: 14px;
+            }
             div[style*="gridTemplateColumns: repeat(3"] { grid-template-columns: 1fr !important; }
             div[style*="gridTemplateColumns: repeat(2"] { grid-template-columns: 1fr !important; }
           }
@@ -101,6 +134,15 @@ export default function Home({ htmlContent }: Props) {
       </Head>
 
       <div suppressHydrationWarning={true} dangerouslySetInnerHTML={{ __html: htmlContent }} />
+      <a
+        href={WHATSAPP_URL}
+        className="whatsapp-float"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="יצירת קשר עם מיכאל בוואטסאפ"
+      >
+        יצירת קשר בוואטסאפ
+      </a>
 
       {/* Form overlay */}
       <style>{`
@@ -198,8 +240,9 @@ export default function Home({ htmlContent }: Props) {
             const data = await res.json();
 
             if (res.ok) {
-              alert('תודה! הפרטים נשלחו בהצלחה. אחזור אלייך בקרוב.');
-              form.reset();
+              window.sessionStorage.setItem('michaelLeadSubmitted', '1');
+              window.location.assign('/thank-you');
+              return;
             } else {
               alert('שגיאה: ' + (data.error || 'אנא נסי שוב'));
             }
